@@ -76,3 +76,43 @@ Avoid returning error codes, and use exceptions instead. Error codes force the c
 Error handling (by using exceptions) should be the one thing that function does. Anything inside the try-catch blocks should be in their own functions, and after the catch/finally block there should be nothing else in the function.
 
 Edsger Dijkstra's rule for structured programming (every block of code should have one entry and one exit) is a bit outdated as it means there should be only one return statement, no break no continues and no goto statements. And that applies mostly to larger functions, but for small ones adding multiple returns, or break/continue statements can even improve readability.
+
+## Chapter 4: Comments
+
+Before adding comments, think through and see if there's a way to express the same in code. Sometimes they're necessary but they should be minimized.
+
+Comments can't always be maintained, since code changes and sometimes chunks of code are moved, and not always comments are updated.
+
+An inaccurate comment is worse than no comment at all.
+
+Sometimes a function with a good name can replace a comment.
+
+There are some good comments:
+
+- Legal comments: e.g., copyright notice.
+- Informative comments: e.g., an example to clarify a regex pattern.
+- Explanation of intent: why it was decided to do something in a certain way.
+- Clarification: when code that cannot be altered must be used and it's not clear enough.
+- Warning of consequences: e.g., explain why a test is turned off.
+- Todo: e.g., if some code must be modified after something else is implemented.
+- Amplification: amplify importance of something that might be overlooked.
+- Documentation (javadocs in public APIs).
+
+And bad comments (most comments are bad comments):
+
+- Mumbling: something that is not clear enough or forces you to go look at some other code.
+- Redundant comments: those that are not more informative than the code.
+- Misleading comments: those that are not accurate (e.g., they state some value is returned but it's not exactly true).
+- Mandated comments: rules that force every function/variable to have documentation, adding clutter.
+- Journal comments: logging every edit made (source control does this much better).
+- Noise comments: providing no new information.
+- Position markers: marking some section in source files.
+- Closing brace comments: those indicating the code block that is ending at the closing brace. (e.g., {...} //while).
+- Attributions: source control can do this.
+- Commented-out code: nobody else will delete the commented out code because they don't know if it's there for a reason.
+- HTML comments: adding html for some other tool to render the comment shouldn't be necessary. The tool should know how to handle the formatting.
+- Nonlocal information: comments should be near the commented code.
+- Too much information: discussions, descriptions or details added to code.
+- Inobvious connection: a comment shouldn't need its own explanation.
+- Function headers: a well chosen name replaces the need for a comment.
+- Javadocs in nonpublic code: it's extra formality that's usually not needed.
