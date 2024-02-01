@@ -60,8 +60,8 @@ Switch statements should be abstracted in some class that can be used or inherit
 
 Keep the number of arguments to a minimum:
 
-- More arguments make it harder for the function to be tested, as more combinations of possible values are needed. 
-- Use arguments just for input values and only output information with _return_. 
+- More arguments make it harder for the function to be tested, as more combinations of possible values are needed.
+- Use arguments just for input values and only output information with _return_.
 - Sometimes an excessive number of arguments cause us to ignore some of them, and ignored code is where bugs hide.
 - Flag arguments should also be avoided as they imply the function does more than one thing.
 - More than two or three arguments is an indication that some of those could be wrapped into their own class. E.g.: `Circle makeCircle(double x, double y, double radius)` could be refactored into `Circle makeCircle(Point center, double radius)`.
@@ -116,3 +116,67 @@ And bad comments (most comments are bad comments):
 - Inobvious connection: a comment shouldn't need its own explanation.
 - Function headers: a well chosen name replaces the need for a comment.
 - Javadocs in nonpublic code: it's extra formality that's usually not needed.
+
+## Chapter 5: Formatting
+
+Consistency is key. Rules about how to format code should be agreed upon (no matter if it's a one person or a team project) and applied consistently throughout the project.
+
+A source file should have a simple and explanatory name. The topmost part of the file should provide high-level concepts and detail should increase as we move downward.
+
+Concepts that are closely related need to be close to each other, vertically. The stronger the affinity, the less distance there should be between them.
+
+Lines of code that are related should appear vertically dense. A group of lines represents a thought, and these thoughts ought to be separated by blank lines.
+
+Variable declaration should happen close to their usage. Instance variables should be declared at the top of the class (or at least in an agreed place).
+
+A caller function, when possible, should be above the callee.
+
+Horizontal formatting should be reasonable.
+
+Use white spaces to surround assignment operators to accentuate them, as well as to separate parameters in a function. Don't use white spaces between function name and the opening parenthesis.
+
+Indent the lines according to their hierarchy. Lines should be aligned to the left in regards to the scope they appear in. Don't collapse scopes down to one line when there's a short statement:
+
+```
+public String render() throws Exception {
+    return "";
+}
+```
+
+is preferred instead of:
+
+```
+public String render() throws Exception {return ""; }
+```
+
+## Chapter 6: Objects and data structures
+
+Variables should be private. Hiding implementation is about abstractions, not about just adding getters and setters. An object should allow its users to manipulate it without having to know its implementation. Sometimes a data structure with procedures operating on them is all we need, instead of objects.
+
+Distinction between objects and data structures:
+
+- Objects hide data and expose behavior (through methods) to operate on that data. You can add new classes without changing existing behavior, but it's hard to add new behaviors to existing classes might need to change many classes that are related.
+
+- Data structures have no significant behavior and expose data. You can add new behaviors to existing data structures but it's hard to add new data structures without changing existing functions.
+
+Law of Demeter: a module should not know about the implementation of the objects it manipulates. An object shouldn't expose its internal structure by providing accessors. This code might violate this law when it calls `getScratchDir()` and `getAbsolutePath()`:
+
+```
+final String outputDir = ctxt.getOptions().getScratchDir().getAbsolutePath();
+```
+
+It's advisable to split the chain of calls:
+
+```
+Options opts = ctxt.getOptions();
+File scratchDir = opts.getScratchDir();
+final String outputDir = scratchDir.getAbsolutePath();
+```
+
+A violatation of the Law of Demeter depends on where ctxt, Options and scratchDir are objects (then their internal structure should be hidden and the law is violated) or data structures (they have no behavior and naturally expose their internal structure).
+
+A solution in this example could be to add a method to `ctxt` that handles whatever operation we were trying to achieve by obtaining the absolute path of the scratch directory. For instance: `BufferedOutputStream bos = ctxt.createScratchFileStream(classFileName);`
+
+Hybrid structures that do significant things and also have public variables/accessors should be avoided, as it's hard to add new functions and also to add new data structures.
+
+One well known data structure is the Data Transfer Object ("DTO"). It's a class with public variables and no functions, normally used when transferring data to or from some source. A "Bean" is a similar kind of object, with private variables manipulated by getters and setters. "Active records", which are beans DTOs with navigational methods, should be treated as data structures as well.
