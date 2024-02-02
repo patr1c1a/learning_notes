@@ -46,7 +46,7 @@ Some guidelines for naming:
 - Use technical names when they exist: computer science terms, algorithm names, math names, etc. If not possible, use a name from the problem domain and use it consistently.
 - Don't add unnecesary context. Shorter names are usually better than longer ones. E.g.: a class named _CustomerAddress_ could be renamed as just _Address_.
 
-Don't fear refactoring a name that other programmer chose, if you found a better one.
+Don't fear refactoring a name that another programmer chose, if you found a better one.
 
 ## Chapter 3: Functions
 
@@ -60,6 +60,8 @@ Switch statements should be abstracted in some class that can be used or inherit
 
 Keep the number of arguments to a minimum:
 
+- More arguments make it harder for the function to be tested, as more combinations of possible values are needed.
+- Use arguments just for input values and only output information with _return_.
 - More arguments make it harder for the function to be tested, as more combinations of possible values are needed.
 - Use arguments just for input values and only output information with _return_.
 - Sometimes an excessive number of arguments cause us to ignore some of them, and ignored code is where bugs hide.
@@ -180,3 +182,47 @@ A solution in this example could be to add a method to `ctxt` that handles whate
 Hybrid structures that do significant things and also have public variables/accessors should be avoided, as it's hard to add new functions and also to add new data structures.
 
 One well known data structure is the Data Transfer Object ("DTO"). It's a class with public variables and no functions, normally used when transferring data to or from some source. A "Bean" is a similar kind of object, with private variables manipulated by getters and setters. "Active records", which are beans DTOs with navigational methods, should be treated as data structures as well.
+
+## Chapter 7: Error handling
+
+Error handling shouldn't obscure the code. Returning error codes is not a good idea as it forces the caller to deal with error handling immediately, so exceptions should be used instead.
+
+When writing code that might throw exceptions, always enclose it in a try-catch block. Try blocks are like transactions.
+
+In TDD, write the test first and expect it to throw an exception, then write the try-catch block in the tested unit and proceed to refactor.
+
+Exceptions should provide information about the error (what failed and how it failed). A stack trace can't provide the intent of the operation that failed. This is why error messages are important (also for logging purposes).
+
+Wrapping 3rd party APIs is a best practise, as it minimizes dependencies and also allows to throw your own exceptions. Catch any exception thrown by the API and translate it into one of yours:
+
+```
+public void open() {
+    try {
+        innerPort.open();
+    } catch (DeviceResponseException e) {
+        throw new PortDeviceFailure(e);
+    }
+}
+```
+
+Don't return null values. If this is something your code does, it forces to perform null-checks all the time. One missing check and it can cause a `NullPointerException`. Instead of returning null, throw an exception or return a special case object instead:
+
+```
+List<Employee> employees = getEmployees();
+if (employees != null) {
+    for(Employee e : employees) {
+        totalPay += e.getPay();
+    }
+}
+```
+
+In this code getEmployees can return null. This code can be turned into:
+
+```
+List<Employee> employees = getEmployees();
+for(Employee e : employees) {
+    totalPay += e.getPay();
+}
+```
+
+Avoid passing null as an argument whenever possible. It's good to have a coding convention that forbids passing null by default, so whenever this happens it indicates there's a problem.
