@@ -62,6 +62,8 @@ Keep the number of arguments to a minimum:
 
 - More arguments make it harder for the function to be tested, as more combinations of possible values are needed.
 - Use arguments just for input values and only output information with _return_.
+- More arguments make it harder for the function to be tested, as more combinations of possible values are needed.
+- Use arguments just for input values and only output information with _return_.
 - Sometimes an excessive number of arguments cause us to ignore some of them, and ignored code is where bugs hide.
 - Flag arguments should also be avoided as they imply the function does more than one thing.
 - More than two or three arguments is an indication that some of those could be wrapped into their own class. E.g.: `Circle makeCircle(double x, double y, double radius)` could be refactored into `Circle makeCircle(Point center, double radius)`.
