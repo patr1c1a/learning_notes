@@ -182,7 +182,6 @@ A solution in this example could be to add a method to `ctxt` that handles whate
 Hybrid structures that do significant things and also have public variables/accessors should be avoided, as it's hard to add new functions and also to add new data structures.
 
 One well known data structure is the Data Transfer Object ("DTO"). It's a class with public variables and no functions, normally used when transferring data to or from some source. A "Bean" is a similar kind of object, with private variables manipulated by getters and setters. "Active records", which are beans DTOs with navigational methods, should be treated as data structures as well.
-<<<<<<< HEAD
 
 ## Chapter 7: Error handling
 
@@ -227,5 +226,3 @@ for(Employee e : employees) {
 ```
 
 Avoid passing null as an argument whenever possible. It's good to have a coding convention that forbids passing null by default, so whenever this happens it indicates there's a problem.
-=======
->>>>>>> 34b375a75fe0f582ec094e11901c3efc46a7e9a1
