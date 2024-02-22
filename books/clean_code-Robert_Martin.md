@@ -226,3 +226,14 @@ for(Employee e : employees) {
 ```
 
 Avoid passing null as an argument whenever possible. It's good to have a coding convention that forbids passing null by default, so whenever this happens it indicates there's a problem.
+
+
+## Chapter 8: Boundaries
+
+When using third-party code (including the built-in code within the language we're using) it might not be focused on our particular needs, so we might need to implement our own interface to adjust third-party code to what we need.
+
+A good way of learning third-party code is by writing tests to explore it. These tests have a positive impact on our own code since there are no guarantees that the third-party code will not change or will continue to be compatible with ours. Tests are a way to support a clean boundary between our code and third-party code. Tests should use this code the same way production code does.
+
+Another boundary is about using code that doesn't exist or is out of our control and doesn't have an interface. We can write our own interface to suit our needs. Once we're provided an actual interface from the third party, we can use an adapter pattern to encapsulate the interaction with the API.
+
+To avoid future changes in third-party code are costly to us, we should avoid letting too much of our code know about the details of the third-party code. This way we depend on what we created and control. Third-party boundaries can be managed by having very few places in the code that refer to them.
