@@ -1,4 +1,4 @@
-# 1. Introduction, Optimization Problems (MIT 6.0002 Intro to Computational Thinking and Data Science)
+# "1. Introduction, Optimization Problems (MIT 6.0002 Intro to Computational Thinking and Data Science)"
 
 **Video citation:** 1. Introduction, Optimization Problems (MIT 6.0002 Intro to Computational Thinking and Data Science). (n.d.). www.youtube.com. Retrieved March 3, 2024, from [https://www.youtube.com/watch?v=C1lhuz6pZC0](https://www.youtube.com/watch?v=C1lhuz6pZC0)
 
