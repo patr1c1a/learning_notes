@@ -58,3 +58,5 @@ Any CSP that has IaaS will always have 4 core service offerings:
 In AWS: Compute can be done by EC2 virtual machines, networking can be done by VPC private cloud network, storage would be EBS virtual hard drives, and databases is RDS sql databases.
 
 Other categories outside the main 4: analytics, application integration, AR & VR, AWS cost management, blockchain, business application, containers, customer engagement, developer tools, end user computing, game tech, internet of things, machine learning, management and governance, media services, migrations & transfer, mobile, quantum technologies, robotics, satellites, security identity and compliance.
+
+_(To be continued)_

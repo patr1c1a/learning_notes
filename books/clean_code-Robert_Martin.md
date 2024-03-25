@@ -237,3 +237,5 @@ A good way of learning third-party code is by writing tests to explore it. These
 Another boundary is about using code that doesn't exist or is out of our control and doesn't have an interface. We can write our own interface to suit our needs. Once we're provided an actual interface from the third party, we can use an adapter pattern to encapsulate the interaction with the API.
 
 To avoid future changes in third-party code are costly to us, we should avoid letting too much of our code know about the details of the third-party code. This way we depend on what we created and control. Third-party boundaries can be managed by having very few places in the code that refer to them.
+
+_(To be continued)_
